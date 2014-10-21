@@ -47,11 +47,11 @@ function invertHex(hexnum){
 
 javascript: (
 function () { 
+var invertLevel = 100;
+var invertLevelString = invertLevel.toString();
 // the css we are going to inject
-var css = 'html {-webkit-filter: invert(100%) ! important; ' +
-    '-moz-filter: invert(100%) ! important;' + 
-    '-o-filter: invert(100%) ! important;' + 
-    '-ms-filter: invert(100%) ! important; }',
+var css = 'html {-webkit-filter: invert(' + invertLevelString + '%); }' +
+          'img, video {-webkit-filter: invert(' + invertLevelString + '%) !important; }',
 
 head = document.getElementsByTagName('head')[0],
 style = document.createElement('style');

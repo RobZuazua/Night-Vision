@@ -1,14 +1,13 @@
 {
-    "name": "Run code on twitter mobile",
-    "version": "1.0",
+    "name": "Luminosity",
+    "version": "0.1.0",
     "manifest_version": 2,
     "content_scripts": [{
-        "js": ["jquery-2.1.1.min.js", "contentscript.js"],
+        "js": ["contentscript.js"],
         "matches": ["*://*/"]
     }],
     "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+    "default_icon": "icon.png"
   },
     "web_accessible_resources": ["colorInverter.js"]
 }
