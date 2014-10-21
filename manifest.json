@@ -1,16 +1,19 @@
 {
     "name": "Luminosity",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "manifest_version": 2,
-    "content_scripts": [{
-        "js": ["contentscript.js"],
-        "matches": ["*://*/*"]
-    }],
+    "browser_action": {
+        "default_title": "Switch color modes",
+        "default_icon": "icons/night.png"
+    },
+    "background":{
+        "scripts":["background.js"],
+        "persistent": true
+    },
     "icons": {
         "128": "icons/night.png"
     },
-    "browser_action": {
-        "default_icon": "icons/night.png"
-    },
-    "web_accessible_resources": ["colorInverter.js"]
-}
+    "options_page": "options/index.html",
+    "permissions":["https://*/*", "http://*/*", "tabs"] 
+ }
+ 

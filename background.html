@@ -1,0 +1,14 @@
+<html>
+<head>
+<script>
+console.log("Background.html"); // This gets displayed. O.K.
+
+function hello() {
+  console.log("HELLO"); // THIS NEVER GETS DISPLAYED
+}
+
+// Supposed to Called when the user clicks on the browser action icon.
+chrome.browserAction.onClicked.addListener(hello); 
+</script>
+</head>
+</html>
