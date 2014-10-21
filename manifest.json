@@ -4,10 +4,13 @@
     "manifest_version": 2,
     "content_scripts": [{
         "js": ["contentscript.js"],
-        "matches": ["*://*/"]
+        "matches": ["*://*/*"]
     }],
+    "icons": {
+        "128": "icons/night.png"
+    },
     "browser_action": {
-    "default_icon": "icon.png"
-  },
+        "default_icon": "icons/night.png"
+    },
     "web_accessible_resources": ["colorInverter.js"]
 }

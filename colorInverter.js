@@ -40,17 +40,13 @@ function invertHex(hexnum){
 
 
 
-
-
-
-
-
 javascript: (
 function () { 
 var invertLevel = 100;
 var invertLevelString = invertLevel.toString();
-// the css we are going to inject
-var css = 'html {-webkit-filter: invert(' + invertLevelString + '%); }' +
+
+document.documentElement.classList.add("invert-colors-extension-marker");
+var css = 'html {-webkit-filter: invert(' + invertLevelString + '%) !important; }' + 
           'img, video {-webkit-filter: invert(' + invertLevelString + '%) !important; }',
 
 head = document.getElementsByTagName('head')[0],
