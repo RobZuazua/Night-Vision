@@ -3,7 +3,7 @@
     "version": "0.1.2",
     "manifest_version": 2,
     "browser_action": {
-        "default_title": "Switch color modes",
+        "default_title": "Click to Switch Mode",
         "default_icon": "icons/night.png"
     },
     "background":{
@@ -14,6 +14,12 @@
         "128": "icons/night.png"
     },
     "options_page": "options/index.html",
-    "permissions":["https://*/*", "http://*/*", "tabs"] 
+    "permissions":["https://*/*", "http://*/*", "storage"],
+    "content_scripts": [{
+        "matches":["https://*/*", "http://*/*"],
+        "match_about_blank": true,
+        "css": ["dummy.css"],
+        "run_at": "document_start"
+    }]
  }
  
