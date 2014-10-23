@@ -1,7 +1,7 @@
 var enabled = false; // requires persistent: true in manifest.json to hold the value across tabs
 var enabledByAuto = false;
 var disabledOutside = true;
-
+var activatedsCurrentState = enabled;
 var manuallyDisabledOnTabIds = [];
 
 var settings = {};
@@ -28,7 +28,7 @@ function clearSettings() {
 
 function retrieveSettings() {
     chrome.storage.sync.get(null, function(item){ // null gets the entire contents of storage
-        console.log("logging the retrieved item from storage"); console.log(item);
+        // console.log("logging the retrieved item from storage"); console.log(item);
 
         settings.auto = item.auto; // There, more efficient since we know the properties beforehand
         settings.invertNumber = item.invertNumber;
@@ -38,13 +38,12 @@ function retrieveSettings() {
 }
 
 function autoEnable(current_time) {
-    console.log(current_time);
-    console.log(settings.auto);
+    // console.log(current_time);
+    // console.log(settings.auto);
     if (settings.auto === true) {
         // debugger;
         if ((current_time.hour >= settings.getBeginHour() && current_time.hour <= settings.getEndHour()) ||  
             ((current_time.hour == settings.getBeginHour && current_time.hour == settings.getEndHour()) && (current_time.min >= settings.getBeginMin() && current_time.min <= settings.getEndMin()))) {
-            console.log("2");
             if (!enabled) {
                 enabled = true;
                 enabledByAuto = true;
@@ -102,6 +101,11 @@ function injectScript(file_name, tab_id) {
 }
 
 chrome.tabs.onActivated.addListener(function(o) {
+    if (activatedsCurrentState == enabled) { // this fixes the blurring due to repeated revert.js injections?
+        console.log("Returning");
+        return;
+    }
+
     if (enabled) { 
         if (manuallyDisabledOnTabIds.indexOf(o.tabId) === -1) { // if not found in manually disabled, then inject script on tab activation
             injectScript("invert.js", o.tabId); 
@@ -112,6 +116,8 @@ chrome.tabs.onActivated.addListener(function(o) {
     else {
         injectScript("revert.js", o.tabId); 
     }
+
+    activatedsCurrentState = enabled;
 });
 
 
