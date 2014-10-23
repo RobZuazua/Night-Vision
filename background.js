@@ -25,14 +25,19 @@ function currentTime() {
 }
 
 function setSettings() {
-    chrome.storage.sync.set({
-        invertNumber: 80,
-        auto: false,
-        begin: "00:00",
-        end: "06:00"
-  }, function(something) {
-        console.log("Default settings defined.");
-  });
+    chrome.storage.sync.get(null, function(item) {
+        if (item.auto == null) { // only first time
+        chrome.storage.sync.set({
+            invertNumber: 80,
+            auto: false,
+            begin: "00:00",
+            end: "06:00"
+        }, function(something) {
+            console.log("Default settings defined.");
+        });
+        }
+    });
+    
 }
 
 // Reset
