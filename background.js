@@ -122,23 +122,24 @@ function injectScript(file_name, tab_id) {
 }
 
 chrome.tabs.onActivated.addListener(function(o) {
-    if (activatedsCurrentState == enabled) { // this fixes the blurring due to repeated revert.js injections?
-        console.log("Returning");
-        return;
-    }
+    // if (activatedsCurrentState == enabled) { // this fixes the blurring due to repeated revert.js injections?
+    //     console.log("Returning");
+    //     return;
+    // }
 
     if (enabled) { 
         if (manuallyDisabledOnTabIds.indexOf(o.tabId) === -1) { // if not found in manually disabled, then inject script on tab activation
+            
             injectScript("invert.js", o.tabId); 
         } else {
-            // blank
+            return;
         }
     }
     else {
         injectScript("revert.js", o.tabId); 
     }
 
-    activatedsCurrentState = enabled;
+    // activatedsCurrentState = enabled;
 });
 
 
@@ -193,6 +194,11 @@ function messageContentScripts() {
     chrome.tabs.query({}, function(tabs) {
         for (var i = 0; i < tabs.length; i++) {
             console.log(tabs[i].id);
+            if (manuallyDisabledOnTabIds.indexOf(tabs[i].id) !== -1) {
+                console.log("continuing");
+                continue;
+            }
+            console.log(tabs[i].id)
             chrome.tabs.sendMessage(tabs[i].id, settings, function(response) {
                 // nothing here
             });
