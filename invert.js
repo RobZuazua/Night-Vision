@@ -3,7 +3,7 @@
 // script.type = 'text/javascript';
 // document.getElementsByTagName('head')[0].appendChild(script);
 
-var invertLevel = 80;
+var invertLevel = 95;
 var unique = "luminosity-extension-head-i";
 
 function removeElementById(id){
