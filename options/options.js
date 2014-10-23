@@ -21,7 +21,7 @@ function save_options() {
 function restore_options() {
   // use default value invert_number = 80 and auto = false, and begin at 12 midnight and end at 6 am
   chrome.storage.sync.get({
-    invertNumber: 80,
+    invertNumber: 95,
     auto: false,
     begin: "00:00",
     end: "06:00"

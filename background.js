@@ -28,7 +28,7 @@ function setSettings() {
     chrome.storage.sync.get(null, function(item) {
         if (item.auto == null) { // only first time
         chrome.storage.sync.set({
-            invertNumber: 80,
+            invertNumber: 95,
             auto: false,
             begin: "00:00",
             end: "06:00"
@@ -129,9 +129,10 @@ chrome.tabs.onActivated.addListener(function(o) {
 
     if (enabled) { 
         if (manuallyDisabledOnTabIds.indexOf(o.tabId) === -1) { // if not found in manually disabled, then inject script on tab activation
-            
-            injectScript("invert.js", o.tabId); 
+            injectScript("invert.js", o.tabId);
+            setBadge({text:"on", color:"#4AA0AA"});
         } else {
+            setBadge({text:"~", color:"#FBD131"});
             return;
         }
     }
@@ -170,7 +171,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
         } else { // the tab is not in disabledTabs list, so
             manuallyDisabledOnTabIds.push(tab.id); // add it on
             injectScript("revert.js", tab.id); // and disable
-            setBadge({text:"on", color:"#4AA0AA"}); // blue
+            setBadge({text:"~", color:"#FBD131"}); 
         }
     }
 });
