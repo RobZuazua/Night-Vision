@@ -19,7 +19,7 @@ function removeElementById(id){
 
 function insertcss() {
 	var css = 'html {-webkit-filter: invert(' + invertLevel.toString() + '%) !important;}' + 
-	          'img, video, multimedia {-webkit-filter: invert(' + invertLevel.toString() + '%) !important; }', // the 100% invert inverts 100 back to 0
+	          'img, video {-webkit-filter: invert(' + invertLevel.toString() + '%) !important; }', // the 100% invert inverts 100 back to 0
 
 	head = document.getElementsByTagName('head')[0],
 	style = document.createElement('style');

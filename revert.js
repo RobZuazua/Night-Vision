@@ -1,7 +1,7 @@
 var invertLevel = 0;
 
 var css = 'html {-webkit-filter: invert(' + invertLevel.toString() + '%) !important; }' + 
-          'img, video, multimedia {-webkit-filter: invert(' + invertLevel.toString() + '%) !important; }',
+          'img, video {-webkit-filter: invert(' + invertLevel.toString() + '%) !important; }',
 
 head = document.getElementsByTagName('head')[0],
 style = document.createElement('style');
