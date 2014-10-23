@@ -2,9 +2,14 @@ var enabled = false; // requires persistent: true in manifest.json to hold the v
 var enabledByAuto = false;
 var disabledOutside = true;
 var activatedsCurrentState = enabled;
-var manuallyDisabledOnTabIds = [];
 
+var manuallyDisabledOnTabIds = [];
 var settings = {};
+
+// Initial
+setSettings();
+retrieveSettings();
+autoEnable(currentTime());
 
 settings.getBeginHour = function() { return parseInt(settings.begin.split(":")[0]); }
 settings.getBeginMin  = function() { return parseInt(settings.begin.split(":")[1]); }
@@ -17,6 +22,17 @@ function currentTime() {
     current_time.hour = date.getHours();
     current_time.min = date.getMinutes();
     return current_time; 
+}
+
+function setSettings() {
+    chrome.storage.sync.set({
+        invertNumber: 80,
+        auto: false,
+        begin: "00:00",
+        end: "06:00"
+  }, function(something) {
+        console.log("Default settings defined.");
+  });
 }
 
 // Reset
