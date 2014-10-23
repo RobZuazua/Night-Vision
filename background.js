@@ -34,8 +34,6 @@ function retrieveSettings() {
         settings.invertNumber = item.invertNumber;
         settings.begin = item.begin;
         settings.end = item.end;
-
-        console.log(settings);
     });
 }
 
@@ -43,11 +41,7 @@ function autoEnable(current_time) {
     console.log(current_time);
     console.log(settings.auto);
     if (settings.auto === true) {
-        console.log("1");
-        console.log(current_time.hour);
-        console.log(settings.getBeginHour());
         // debugger;
-        console.log('the truth' + (current_time.hour >= settings.getBeginHour()));
         if ((current_time.hour >= settings.getBeginHour() && current_time.hour <= settings.getEndHour()) ||  
             ((current_time.hour == settings.getBeginHour && current_time.hour == settings.getEndHour()) && (current_time.min >= settings.getBeginMin() && current_time.min <= settings.getEndMin()))) {
             console.log("2");
@@ -68,7 +62,6 @@ function autoEnable(current_time) {
                 // blank
             }
         } else {
-            console.log("here");
             if (enabledByAuto) {
                 enabled = false;
                 enabledByAuto = false;
@@ -78,7 +71,6 @@ function autoEnable(current_time) {
             }
         }
     } else {
-        console.log("here");
         if (enabledByAuto) {
             enabled = false;
             enabledByAuto = false;
@@ -159,11 +151,31 @@ chrome.storage.onChanged.addListener(function() {
     autoEnable(currentTime());
 });
 
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    if (request == true) { // either a slider or time or any change is handled the same
+       console.log("g"); 
+      retrieveSettings();
+      messageContentScripts();
+    }
+});
+
+function messageContentScripts() {
+    chrome.tabs.query({}, function(tabs) {
+        for (var i = 0; i < tabs.length; i++) {
+            console.log(tabs[i].id);
+            chrome.tabs.sendMessage(tabs[i].id, settings, function(response) {
+                // nothing here
+            });
+        }
+    });
+}
+
 retrieveSettings();
-console.log(settings);
 autoEnable(currentTime());
 
 var clearer = setInterval(function() {
     retrieveSettings();
     autoEnable(currentTime());
-}, 1000);
+}, 2000);

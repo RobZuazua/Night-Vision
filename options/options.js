@@ -19,10 +19,10 @@ function save_options() {
 }
 
 function restore_options() {
-  // use default value invert_number = 80 and auto = true with begin at 12 midnight and end at 6 am
+  // use default value invert_number = 80 and auto = false, and begin at 12 midnight and end at 6 am
   chrome.storage.sync.get({
     invertNumber: 80,
-    auto: true,
+    auto: false,
     begin: "00:00",
     end: "06:00"
   }, function(item) {
@@ -34,8 +34,6 @@ function restore_options() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
-
 // save options on window close
 $(window).on("beforeunload", function() { 
   save_options();
@@ -43,6 +41,42 @@ $(window).on("beforeunload", function() {
 
 // Foundation theme stuff
 $(document).foundation();
+
+document.addEventListener('DOMContentLoaded', function () {
+  restore_options(); // set sliders, data in forms to the prev. saved stuff
+
+  // Set up listeners
+  // Messages posted on interaction with slider, to background.js, so changes can take place live
+  $("#invert-level-slider").change(function() {
+    save_options();
+    chrome.runtime.sendMessage(true, function(response) { // just any message will do fine for us
+      console.log("Finished posting.");
+    });
+  });
+
+  // auto time stuff change listeners
+  $("#auto-checkbox").change(function() {
+    save_options();
+    chrome.runtime.sendMessage(true, function(response) { // just any message will do fine for us
+      console.log("Finished posting.");
+    });
+  });
+
+  $("#begin").change(function() {
+    save_options();
+    chrome.runtime.sendMessage(true, function(response) { // just any message will do fine for us
+      console.log("Finished posting.");
+    });
+  });
+
+
+  $("#end").change(function() {
+    save_options();
+    chrome.runtime.sendMessage(true, function(response) { // just any message will do fine for us
+      console.log("Finished posting.");
+    });
+  });
+});
 
 
 
