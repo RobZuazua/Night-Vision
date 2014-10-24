@@ -3,6 +3,8 @@ var enabledByAuto = false;
 var disabledOutside = true;
 var activatedsCurrentState = enabled;
 
+var contentScriptsPATH = "src/content-scripts/"
+
 var manuallyDisabledOnTabIds = [];
 var settings = {};
 
@@ -107,12 +109,12 @@ function setBadge(properties) {
 }
 
 function injectScript(file_name, tab_id) {
-    chrome.tabs.executeScript(tab_id, { "file": file_name }, function() {
+    chrome.tabs.executeScript(tab_id, { "file": contentScriptsPATH + file_name }, function() {
         if (file_name === "invert.js") {
             messageContentScripts();
             chrome.tabs.getCurrent(function(tab) {
                 console.log("get current tab on immediate options change stuff, to avoid reload");
-                chrome.tabs.executeScript(tab.id, { "file": file_name }, function() {
+                chrome.tabs.executeScript(tab.id, { "file": contentScriptsPATH + file_name }, function() {
                     // blank
                 });
             });
