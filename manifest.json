@@ -1,9 +1,10 @@
 {
-    "name": "Luminosity",
-    "version": "0.1.2",
+    "name": "Night Vision",
+    "description": "Make websites easier to view by inverting colors. Open source and customizable.",
+    "version": "0.2.0",
     "manifest_version": 2,
     "browser_action": {
-        "default_title": "Click to Switch Mode",
+        "default_title": "Click to switch modes",
         "default_icon": "icons/night.png"
     },
     "background":{
