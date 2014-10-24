@@ -22,4 +22,4 @@ Features
 
 License
 ===
-[MIT](opensource.org/licenses/MIT)
+[MIT](http://opensource.org/licenses/MIT)
