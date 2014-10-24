@@ -1,4 +1,4 @@
-[Night Vision]()
+[Night Vision](https://chrome.google.com/webstore/detail/night-vision/hamjjddlcjfininpcaoankggglkblckb)
 ===
 A Google Chrome extension that makes webpages easier to read at night. Made by [@RobZuazua](https://github.com/RobZuazua) and [@nishanths](https://github.com/nishanths).
 
@@ -10,7 +10,7 @@ It inverts the colors of the primarily white-themed webpages you visit, making t
 
 Installing
 ===
-* Grab it from the [Google Chrome Store](). 
+* Get it from the [chrome web store](https://chrome.google.com/webstore/detail/night-vision/hamjjddlcjfininpcaoankggglkblckb). 
 
 Features
 ===
